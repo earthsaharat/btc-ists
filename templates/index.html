@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+
+
+<head>
+
+	<!-- <script src='statics/js/d3.v4.min.js'></script> -->
+	<!-- <link href="statics/css/style.css" rel="stylesheet"> -->
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+
+
+	<!-- Jquery Core Js -->
+	<!-- <script src="statics/jquery/jquery.min.js"></script> -->
+	<script src="{{ url_for('static', filename='jquery/jquery.min.js') }}" 			></script>
+
+	<!-- Flot Charts Plugin Js -->
+<!-- 	<script src="statics/flot-charts/jquery.flot.js"></script>
+	<script src="statics/flot-charts/jquery.flot.resize.js"></script>
+	<script src="statics/flot-charts/jquery.flot.pie.js"></script>
+	<script src="statics/flot-charts/jquery.flot.categories.js"></script>
+	<script src="statics/flot-charts/jquery.flot.time.js"></script> -->
+
+	<script src="{{ url_for('static', filename='flot-charts/jquery.flot.js') }}" 			></script>
+	<script src="{{ url_for('static', filename='flot-charts/jquery.flot.resize.js') }}" 	></script>
+	<script src="{{ url_for('static', filename='flot-charts/jquery.flot.pie.js') }}" 		></script>
+	<script src="{{ url_for('static', filename='flot-charts/jquery.flot.categories.js') }}" ></script>
+	<script src="{{ url_for('static', filename='flot-charts/jquery.flot.time.js') }}" 		></script>
+
+	<title></title>
+	<style type="text/css">
+		@font-face {
+		   font-family: Futura; 
+		   /*src: url('statics/Fonts/Futura.otf');*/
+		   src: url('{{ url_for('static', filename='Fonts/Futura.otf') }}');
+		}
+		@font-face {
+		   font-family: Cloud_Light; 
+		   /*src: url('statics/Fonts/Cloud-Light.otf');*/
+		   src: url('{{ url_for('static', filename='Fonts/Cloud-Light.otf') }}');
+		} 
+		@font-face {
+		   font-family: Cloud_Bold; 
+		   /*src: url('statics/Fonts/Cloud-Bold.otf');*/
+		   src: url('{{ url_for('static', filename='Fonts/Cloud-Bold.otf') }}');
+		} 
+		body{
+			font-family: Futura;
+			/*background-color: #f9f9f9;*/
+			background-color: #fff;
+		}
+
+
+		p{ margin: 0px; }
+
+		.page{
+			width: 100%;
+			height: 100vh;
+			display: table;
+			margin: 0px;
+			padding: 0px;
+		}
+
+
+		.image-header,svg{
+			top: 0px;
+			width: 100%;
+			/*height: 50vmin;*/
+			/*background-image: url("statics/images/wallpaper4.jpg");*/
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			position: absolute;
+			/*background-color: #ff9933;*/
+		}
+		.container{
+			margin-top: 	15vmin;
+			margin-left: 	18vmin;
+			margin-right: 	18vmin;
+			background-color: #fff;
+			padding: 		7vmin;
+			padding-top: 	5vmin;
+			position: relative;
+			border-radius: 4vmin;
+		}
+
+		.mt1{ margin-top: 6vmin; }
+		.mt2{ margin-top: 4vmin; }
+		.mt3{ margin-top: 2vmin; }
+
+		.t1{ font-size: 8vmin; }
+		.t2{ font-size: 6vmin; }
+		.t3{ font-size: 4vmin; }
+		.t4{ font-size: 2vmin; }
+		.t5{ font-size: 1vmin; }
+
+		.tr{ text-align: right; }
+		.tc{ text-align: center; }
+		.tl{ text-align: left; }
+		.tj{ text-align: justify; }
+
+		.c1{ color: #ff3333; }
+		.c2{ color: #ff9933; }
+		.c3{ color: #ffcc33; }
+		.c4{ color: #ccff33; }
+
+
+		.list-1{ font-size: 4vmin; color: #ff9933; }
+		.list-2{ float: right; color: #33ccff; }
+
+
+		.list2-1{ color: #3399ff; font-size: 4vmin; margin-top: 2vmin;}
+		.list2-2{ color: #33ccff; }
+
+		.list3-1{ color: #ff6633; font-size: 4vmin; margin-top: 2vmin;}
+		.list3-2{ color: #ffff33; }
+
+		a{ color: #33ccff; text-decoration: none; }
+		a:hover{ color: #3366ff; }
+
+
+		/* Dropdown Button */
+		.dropbtn {
+			/*background-color: #3498DB;*/
+			color: #ccc;
+			/*padding: 16px;*/
+			padding: 0px;
+			font-size: 4vmin;
+			border: none;
+			cursor: pointer;
+		}
+		
+		/* Dropdown button on hover & focus */
+		.dropbtn:hover, .dropbtn:focus {
+			background-color: #333;
+			color: #fff;
+		}
+		
+		/* The container <div> - needed to position the dropdown content */
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+		
+		/* Dropdown Content (Hidden by Default) */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #fff;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+		
+		/* Links inside the dropdown */
+		.dropdown-content a {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+		}
+		
+		/* Change color of dropdown links on hover */
+		.dropdown-content a:hover {background-color: #ddd}
+		
+		/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+		.show {display:block;}
+
+
+
+
+
+		.trading-logo{
+			height: 6vmin;
+			margin: 2vmin;
+		}
+
+
+		.footer-text{
+			color: #bbb;
+			text-align: center;
+			font-size: 3vmin;
+		}
+
+	</style>
+</head>
+<body style="padding: 0px; margin: 0px;">
+	<div class="page" style="background-color: #ffcc33;">
+		<p style="margin: auto; text-align: center; font-size: 10vw; position: relative; text-transform: uppercase; line-height: 97vh; font-family: Cloud_Bold; color: #fff;">cryptocurrency</p>
+
+	</div>
+	<!-- <script type="text/javascript"> var svg = d3.select("body").append("svg"); </script> -->
+
+
+	<div class="page" style="background-color: #fff;">	
+		<div style="display: table-cell; vertical-align: middle; padding: 20vmin;">
+			<p style="color: #000; font-size: 10vmin; color: #ff9933;">Definitions</p>
+			<p style="color: #000; font-size: 5vmin; margin-top: 5vmin; text-align: justify; color: #ffcc33;">a digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank.</p>
+		</div>
+	</div>
+
+	<div class="page" style="background-color: #fff;">	
+		<div style="display: table-cell; vertical-align: middle; padding: 20vmin;">
+			<!-- <p style="color: #000; font-size: 5vmin; margin-top: 5vmin; text-align: justify; color: #ffcc33;">a digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank.</p> -->
+			<img src="{{ url_for('static', filename='images/Legal_status_of_bitcoin.png') }}" style="width: 100%;"> 
+			<p style="font-size: 3vmin; margin-top: 3vmin; text-align: justify;">
+				<span style="color: #00D65E;">permissive (legal to use bitcoin),</span>
+				<span style="color: #FFCF00;">contentious (some legal restrictions on usage of bitcoin),</span>
+				<span style="color: #FF4CD8;">contentious (interpretation of old laws, but bitcoin isn't prohibited directly),</span>
+				<span style="color: #FF0000;">hostile (full or partial prohibition)</span>
+			</p>
+		</div>
+	</div>
+
+	<div class="page" style="background-color: #fff;">	
+		<div style="display: table-cell; vertical-align: middle; padding: 20vmin; padding-right: 40vmin; padding-left: 40vmin;">
+			<p style="color: #000; font-size: 15vmin; line-height: 15vmin; color: #ffcc33;">Exchange</p>
+			<p style="font-size: 2.5vmin; color: #ffcc33;" id="exchange-date"></p>
+			<div id="exchange-list" style="margin-top: 4vmin;">
+				<p style="font-size: 4vmin;">Hello<span style="float: right;">10$</span></p>
+			</div>
+			<script type="text/javascript">
+				function to2digit(input){
+					if(input < 10) return "0"+String(input);
+					return String(input)
+				}
+				function dateToStr(input){
+					return String(input.getFullYear())+"-"+to2digit(input.getMonth())+"-"+to2digit(input.getDate())
+				}
+				function timeToStr(input){
+					return String(input.getFullYear())+"-"+to2digit(input.getMonth())+"-"+to2digit(input.getDate())+" "+
+						to2digit(input.getHours())+":"+to2digit(input.getMinutes())+":"+to2digit(input.getSeconds())
+				}
+
+				checkExchangeCounter();
+				updateExchange();
+				var timer_update_exchange = setInterval(checkExchangeCounter, 1000);
+
+				var exchangeCounter = 0
+				function checkExchangeCounter(){
+					let now = new Date;
+					document.getElementById("exchange-date").innerHTML = 'UPDATE '+timeToStr(now)
+					exchangeCounter += 1
+					if(exchangeCounter >= 5){
+						exchangeCounter = 0;
+						updateExchange();
+					}
+				}
+
+				function updateExchange(){
+					const Http = new XMLHttpRequest();
+					const url='https://blockchain.info/ticker';
+					Http.open("GET", url);
+					Http.send();
+					Http.onreadystatechange=(e)=>{
+						if(Http.responseText != ""){
+							let raw_data = JSON.parse(Http.responseText)
+							let code_list = ['USD','SGD','HKD','THB','JPY'] // 'CNY'
+							let exchange_buy_element = document.getElementById("exchange-list")
+							exchange_buy_element.innerHTML = ""
+							exchange_buy_element.innerHTML += '<p class="list-1">BTC<span class="list-2">1.00</span></p>'
+							for(var i=0;i<code_list.length;i++){
+								exchange_buy_element.innerHTML += '<p class="list-1">'+code_list[i]+'<span class="list-2">'+raw_data[code_list[i]]['buy'].toFixed(2)
+								+'</span></p>'
+							}
+						}
+					}
+				}
+
+			</script>
+		</div>
+	</div>
+
+
+	<dir class="page" style="background-color: #fff;">
+		<div style="display: table-cell; vertical-align: middle; padding: 20vmin;">
+
+			<p style="font-size: 10vmin; color: #3366ff; margin-bottom: 1vmin;">How to buy Bitcoin</p>
+			<p class="list2-1">1 Sign up for Coinbase - <a href="https://www.coinbase.com/signup">Sign up here ›</a></p>
+			<p class="list2-1">2 Connect Your Bank Account - <a href="https://www.coinbase.com/payment_methods">Add A Bank Account ›</a></p>
+			<p class="list2-1">3 Buy and Sell Bitcoin - <a href="https://www.coinbase.com/buy">Buy Bitcoin ›</a></p>
+			<p class="list2-1"><a href="https://www.coinbase.com/buy-bitcoin?locale=en" style="color: #ddd;">See more ›</a></p>
+		</div>
+	</dir>
+	<dir class="page" style="background-color: #fff;">
+		<div style="display: table-cell; vertical-align: middle; padding: 20vmin; text-align: center;">
+			<p style="font-size: 6vmin; color: #ccc; margin-bottom: 8vmin; width: 100%;">Cryptocurrency Trading Platforms</p>
+			<!-- <p class="list2-1">1 Sign up for Coinbase - <a href="https://www.coinbase.com/signup">Sign up here ›</a></p> -->
+			
+			<a href="https://www.etoro.com/">		<img class="trading-logo" src="{{ url_for('static', filename='images/logo1.png') }}"></a>
+			<a href="https://www.kraken.com/">		<img class="trading-logo" src="{{ url_for('static', filename='images/logo2.png') }}"></a>
+			<a href="https://poloniex.com/">		<img class="trading-logo" src="{{ url_for('static', filename='images/logo3.png') }}"></a>
+			<a href="https://poloniex.com/">		<img class="trading-logo" src="{{ url_for('static', filename='images/logo4.png') }}"></a>
+			<a href="https://hitbtc.com/">			<img class="trading-logo" src="{{ url_for('static', filename='images/logo5.png') }}"></a>
+			<a href="https://bittrex.com/">			<img class="trading-logo" src="{{ url_for('static', filename='images/logo6.jpg') }}"></a>
+			<a href="https://www.bitmex.com/">		<img class="trading-logo" src="{{ url_for('static', filename='images/logo7.png') }}"></a>
+			<a href="https://www.coinbase.com/">	<img class="trading-logo" src="{{ url_for('static', filename='images/logo8.png') }}"></a>
+			<a href="https://localbitcoins.com/">	<img class="trading-logo" src="{{ url_for('static', filename='images/logo9.png') }}"></a>
+
+
+
+			<p class="list2-1" style=" padding-top: 4vmin;"><a href="https://www.quantinsti.com/blog/top-9-cryptocurrency-trading-platforms/" style="color: #ddd;">See more ›</a></p>
+		</div>
+	</dir>
+
+
+	<div class="page" style="background-color: #fff;">
+		<div style="display: table-cell; vertical-align: middle; padding: 20vmin;">
+			<p style="font-size: 10vmin; color: #666;">Price<span style="font-size: 5vmin;"> of Bitcoin</span></p>
+			<div class="dropdown" style="margin-top: 0vmin; margin-bottom: 4vmin;">
+				<button onclick="myFunction()" class="dropbtn" style="font-family: Futura" id="chart-range-button">Range 1 month ›</button>
+				<div id="myDropdown" class="dropdown-content">
+					<a onclick="range_pack_index=0; initData();">1 MONTH</a>
+					<a onclick="range_pack_index=1; initData();">3 MONTHS</a>
+					<a onclick="range_pack_index=2; initData();">6 MONTHS</a>
+					<a onclick="range_pack_index=3; initData();">1 YEAR</a>
+					<a onclick="range_pack_index=4; initData();">2 YEARS</a>
+				</div>
+
+			</div>
+			<div id="real_time_chart" class="dashboard-flot-chart"></div>
+			<p style="font-size: 4vmin; color: #999; margin-top: 4vmin; width: 100%; text-align: center;" id="chart-label"></p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function myFunction() {
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
+		
+		// Close the dropdown menu if the user clicks outside of it
+		window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+			var dropdowns = document.getElementsByClassName("dropdown-content");
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+			  var openDropdown = dropdowns[i];
+			  if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			  }
+			}
+		  }
+		}
+	</script>
+
+
+	<dir class="page" style="background-color: #fff;">
+		<div style="vertical-align: middle; padding: 20vmin;">
+
+			<p style="font-size: 10vmin; color: #ff6633; margin-bottom: 1vmin;">News</p>
+			<!-- <div id="news" style="">
+				<div style="display: inline-block; height: 18vmin; width: 32vmin; ">
+					<img style="margin-top: 0vmin; width: 100%;" src="https://p5.focus.de/img/kryptowaehrungen/crop9746191/2442717975-w1200-h627-o-q75-p5/compressed-b3f0b1c8-a260-40a4-8f8c-29f74ab42270shutterstock-580499569-1024x684.jpg">
+				</div>
+				<div style="display: inline-block; height: 18vmin;">
+					<p style="color: #ff9933; font-size: 4vmin; margin-top: 0vmin;">asdfghjkjhgfdfghjhgfdfghjhgfdfghjhgfdfghjhgfghj</p>
+					<p style="color: #ff6633; font-size: 3vmin; margin-top: 0vmin;"><span style="color: #ffcc33;">Date</span> - <a href="https://www.coinbase.com/signup">Read more ›</a></p>
+				</div>
+			</div> -->
+
+
+			<table style="width:100%; text-align: left;" id="news">
+				<!-- <tr>
+					<th><img style="margin-top: 0vmin; width: 32vmin; height: 18vmin;" src="https://p5.focus.de/img/kryptowaehrungen/crop9746191/2442717975-w1200-h627-o-q75-p5/compressed-b3f0b1c8-a260-40a4-8f8c-29f74ab42270shutterstock-580499569-1024x684.jpg"></th>
+					<th>
+						<p style="color: #ff9933; font-size: 4vmin; margin-top: 0vmin;">asdfghjkjhgfdfghjhgfdfghjhgfdfghjhgfdfghjhgfghj</p>
+						<p style="color: #ff6633; font-size: 3vmin; margin-top: 0vmin;"><span style="color: #ffcc33;">Date</span> - <a href="https://www.coinbase.com/signup">Read more ›</a></p>
+					</th> 
+				</tr> -->
+			</table>
+
+			<p class="list2-1"><a href="https://newsapi.org/sources" style="color: #ddd;">See more ›</a></p>
+		</div>
+
+
+
+	</dir>
+
+
+	<div style="background-color: #eee; width: 100%; padding: 0px; margin: 0px; margin-top: 10vmin;">
+		<div style="padding: 5vmin; margin: 0px;">
+			<p style="font-size: 4vmin; color: #aaa; margin-bottom: 2vmin; text-align: center;">Developer</p>
+			<p class="footer-text">Saharat Saengsawang</p>
+			<p class="footer-text">Chan Kwong Pan</p>
+			<p class="footer-text">Tanakrit Garaket</p>
+			<p class="footer-text">Masami Shimada</p>
+			<p class="footer-text">Ryoko Tsumagari</p>
+		</div>
+		<div style="padding: 5vmin; margin: 0px; padding-top: 2vmin;">
+			<p style="font-size: 4vmin; color: #aaa; margin-bottom: 2vmin; text-align: center;">Reference</p>
+			<p style="text-align: center;"><a class="footer-text" href="https://aws.amazon.com">Amazon Web Services</a></p>
+			<p style="text-align: center;"><a class="footer-text" href="https://www.google.com/search?client=safari&rls=en&q=Dictionary">Google Dictionary </a></p>
+			<p style="text-align: center;"><a class="footer-text" href="https://www.coinbase.com/buy-bitcoin?locale=en">Coinbase</a></p>
+			<p style="text-align: center;"><a class="footer-text" href="https://www.coindesk.com">Coindesk</a></p>
+			<p style="text-align: center;"><a class="footer-text" href="https://blockchain.info/ticker">Blockchain</a></p>
+		</div>
+		
+	</div>
+
+	<!-- <script type="text/javascript">
+		screenSize = {'width':window.innerWidth, 'height':window.innerHeight - 10};
+		svg.attr('width',screenSize.width).attr('height',screenSize.height);
+
+
+		var atoms = []
+
+		initAtom();
+		function initAtom(){
+			let n=500;
+			for(var i=0;i<n;i++){
+				atoms.push(svg.append('circle'))
+				atoms[i]
+					.attr('r',(2+Math.random()*4)+'vmin')
+					.attr('cx',Math.random()*screenSize.width)
+					.attr('cy',Math.random()*screenSize.height)
+					// .attr('fill','hsl('+((Math.random()>0.2)?195:45)+', 100%, '+(70+Math.random()*30)+'%)')
+					.attr('fill','hsl('+(45)+', 100%, '+(70+Math.random()*30)+'%)')
+			}
+		}
+
+		function timerFunction(){
+			let speed = 5;
+			for(var i=0;i<atoms.length;i++){
+				// console.log(atoms[i].attr('cy'))
+				var newY = atoms[i].attr('cy')*1+speed;
+				if(newY < screenSize.height+20){
+					atoms[i].attr('cy', newY );
+				}else{
+					atoms[i]
+						.attr('cx',Math.random()*screenSize.width)
+						.attr('cy', -50+Math.random()*40 )
+						.attr('r',(2+Math.random()*4)+'vmin')
+				}
+			}
+		}
+
+		var timer = setInterval(function(){
+			timerFunction();
+		},10);
+
+
+
+	</script> -->
+
+
+
+
+<script type="text/javascript">
+
+var mydata = []
+
+let range_pack = ["1 month","3 months","6 months","1 year","2 years"];
+let range_pack_months = [1,3,6,12,24];
+var range_pack_index = 0;
+
+initData();
+function initData(){
+	// Request data form API
+	
+	
+	var end_date = new Date()
+	var sta_date = new Date(end_date)
+	sta_date.setMonth(sta_date.getMonth() - range_pack_months[range_pack_index]);
+	
+	let sta_date_str = dateToStr(sta_date)
+	let end_date_str = dateToStr(end_date)
+	
+	const Http = new XMLHttpRequest();
+	// const url='https://api.coindesk.com/v1/bpi/historical/close.json?start=2018-10-07&end=2018-10-08';
+	const url='https://api.coindesk.com/v1/bpi/historical/close.json?start='+sta_date_str+'&end='+end_date_str;
+	Http.open("GET", url);
+	Http.send();
+	Http.onreadystatechange=(e)=>{
+		mydata = []
+		if(Http.responseText != ""){
+			let raw_data = JSON.parse(Http.responseText)
+			for(var key in raw_data.bpi) mydata.push([(new Date(key)).getTime(),raw_data.bpi[key]])
+		}
+
+		// console.log(trackingPlot.getData())
+		// trackingPlot.setData([
+		//     {
+		//         data: mydata,
+		//         label: 'hello(x) = -0.00',
+		//         color: '#E91E63'
+		//     },
+		//     {
+		//         data: cos,
+		//         label: 'cos(x) = -0.00',
+		//         color: '#00BCD4'
+		//     }
+		// ])
+		// trackingPlot.draw();
+		// console.log(trackingPlot.getData())
+
+		initRealTimeChart();
+		document.getElementById("chart-range-button").innerHTML = 'Range '+range_pack[range_pack_index]+' ›';
+	}
+}
+
+
+
+var lastDate = ""
+
+var realtime = 'off';
+function initRealTimeChart() {
+	var trackingData = [
+		{
+			data: [mydata[0]],
+			label: '=',
+			color: 'white',
+			shadowSize: 0,
+		},
+		{
+			data: mydata,
+			label: 'BTC = ?',
+			color: '#3366ff',
+			shadowSize: 0,
+		}
+	];
+
+	var trackingPlot = $.plot('#real_time_chart', trackingData, {
+		crosshair: {
+			mode: 'x'
+		},
+		grid: {
+			hoverable: true,
+			autoHighlight: false,
+			borderColor: '#f3f3f3',
+			borderWidth: 2,
+			tickColor: '#f3f3f3'
+		},
+		xaxis:{
+			mode: "time"
+		},
+		legend: { show: false }
+	});
+
+	var legends = $('#real_time_chart .legendLabel');
+	legends.each(function () {
+		$(this).css('width', $(this).width());
+	});
+
+	var updateLegendTimeout = null;
+	var latestPosition = null;
+
+	function updateLegend() {
+		updateLegendTimeout = null;
+		var pos = latestPosition;
+
+		var axes = trackingPlot.getAxes();
+		if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
+			pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) {
+			return;
+		}
+
+		var i, j, dataset = trackingPlot.getData();
+		for (i = 0; i < dataset.length; ++i) {
+			var series = dataset[i];
+
+			for (j = 0; j < series.data.length; ++j) {
+				if (series.data[j][0] > pos.x) {
+					break;
+				}
+			}
+
+			var y,x, p1 = series.data[j - 1], p2 = series.data[j];
+
+			// if (p1 == null) {
+			//     y = p2[1];
+			//     x = p2[0];
+			// } else if (p2 == null) {
+			//     y = p1[1];
+			//     x = p1[0];
+			// } else {
+			//     y = p1[1] + (p2[1] - p1[1]) * (pos.x - p1[0]) / (p2[0] - p1[0]);
+			//     x = p2[0];
+			// }
+			if(p2 == null){
+				y = p1[1]
+				x = p1[0]
+			}else{
+				y = p2[1]
+				x = p2[0]
+			}
+			let dateX = new Date(x)
+			let dateXstr = dateX.getFullYear()+"-"+to2digit(dateX.getMonth())+"-"+to2digit(dateX.getDate())
+			let textSplited = series.label.split(" = ")
+			// legends.eq(i).text(series.label.replace(/=.*/, '= ' + y.toFixed(2)+'$ AT '+dateXstr));
+			// legends.eq(0).text('AT '+dateXstr);
+			// legends.eq(i).text(textSplited[0]+' = '+y.toFixed(2)+'$');
+
+			lastDate = dateX.getFullYear()+"-"+dateX.getMonth()+"-"+dateX.getDate()
+			document.getElementById('chart-label').innerHTML = 'AT '+dateXstr+' 1BTC = '+y.toFixed(2)+'USD'
+		}
+	}
+
+
+	$('#real_time_chart').bind('plothover', function (event, pos, item) {
+		latestPosition = pos;
+		if (!updateLegendTimeout) {
+			updateLegendTimeout = setTimeout(updateLegend, 50);
+		}
+	});
+
+	$('#real_time_chart').bind('click', function (event, pos, item) {
+		latestPosition = pos;
+		if (!updateLegendTimeout) {
+			// updateLegendTimeout = setTimeout(updateLegend, 50);
+			// console.log(lastDate);
+			// updateNews();
+		}
+	});
+}
+
+// NEWS
+
+updateNews();
+function updateNews(){
+
+	// https://newsapi.org/v2/everything?q=apple&from=2018-10-8&to=2018-10-8&sortBy=popularity&apiKey=8268bd745bd748f38f13d069a084aa97
+	const Http = new XMLHttpRequest();
+	// const url='https://newsapi.org/v2/everything?q=apple&from='+lastDate+'&to='+lastDate+'&sortBy=popularity&apiKey=8268bd745bd748f38f13d069a084aa97';
+	let url = 'https://newsapi.org/v2/everything?q=bitcoin&sortBy=publishedAt&apiKey=8268bd745bd748f38f13d069a084aa97'
+	console.log(url)
+	Http.open("GET", url);
+	Http.send();
+	Http.onreadystatechange=(e)=>{
+		mydata = []
+		if(Http.responseText != ""){
+			let raw_data = JSON.parse(Http.responseText)
+			if(raw_data == "") return;
+			let element = document.getElementById('news');
+			element.innerHTML = ''
+			for(var i=0;i<3;i++){
+				let aNews = raw_data['articles'][i]
+	//         	element.innerHTML += '\
+	//         	<p style="color: #ff9933; font-size: 4vmin; margin-top: 2vmin;">'+aNews['title']+'</p>\
+				// <p style="color: #ff6633; font-size: 3vmin; margin-top: 0vmin;"><span style="color: #ffcc33;">'+(timeToStr(new Date(aNews['publishedAt'])))+'</span> - <a href="'+aNews['url']+'">Read more ›</a></p>'
+
+				element.innerHTML += '<tr><th><img style="margin-top: 0vmin; width: 32vmin; height: 18vmin;" src="'+aNews['urlToImage']+'"></th>\
+					<th style="padding:5vmin;">\
+						<p style="color: #ff9933; font-size: 4vmin; margin-top: 0vmin; text-align:justify;">'+aNews['title']+'</p>\
+						<p style="color: #ff6633; font-size: 3vmin; margin-top: 1vmin;"><span style="color: #ffcc33;">'+(timeToStr(new Date(aNews['publishedAt'])))+'</span> - <a href="'+aNews['url']+'">Read more ›</a></p>\
+					</th>\
+				</tr>'
+			}
+			console.log(raw_data)
+		}
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+
+
+
+</body>
+</html>
